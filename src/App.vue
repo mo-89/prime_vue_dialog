@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Dialog from 'primevue/dialog'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
@@ -47,10 +48,19 @@ export default {
     onHide() {
       this.display = false;
     },
-    submit() {
-      console.log(this.input1);
-      console.log(this.input2);
-      this.onHide();
+
+    async submit() {
+      try {
+        const response = await axios.post('api/test', {
+          input1: this.input1,
+          input2: this.input2,
+        })
+        console.log(response.data)
+
+        this.onHide
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
