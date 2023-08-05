@@ -1,29 +1,57 @@
 <template>
-  <div id="app">
-    <Button label="Show" icon="pi pi-check" @click="showDialog = true"></Button>
-  </div>
+  <Button label="open modal" @click="showDialog" />
 
-  <Dialog header="GodFather I" v-model:visible="showDialog" :modal="true" :style="{width: '50vw'}">
-    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding...</p>
-    <Button label="Hide" icon="pi pi-times" @click="showDialog = false"></Button>
+  <Dialog :visible="display" :modal="true" :style="{ width: '50vw'}" :closable="false" @hide="onHide">  
+    <template #header>
+      <h2>Input form</h2>
+    </template>
+    <div class="p-fluid">
+      <div class="p-filed">
+        <label for="input1">input 1</label>
+        <InputText id="input1" v-model="input1" />
+      </div>
+      <div class="p-filed">
+        <label for="input2">input 2</label>
+        <InputText id="input2" v-model="input2" />
+      </div>
+    </div>
+    <template #footer>
+      <Button label="Cancel" class="p-button-text" @click="onHide" />
+      <Button label="Submit" class="p-button-success" @click="submit" />
+    </template>
   </Dialog>
 </template>
 
 <script>
-import { ref } from 'vue';
 import Dialog from 'primevue/dialog'
 import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
 
 export default {
   components: {
     Dialog,
-    Button
+    Button,
+    InputText
   },
-  setup() {
-    const showDialog = ref(false);
-
-    return { showDialog };
+  data() {
+    return {
+      display: false,
+      input1: '',
+      input2: '',
+    }
+  },
+  methods: {
+    showDialog() {
+      this.display = true;
+    },
+    onHide() {
+      this.display = false;
+    },
+    submit() {
+      console.log(this.input1);
+      console.log(this.input2);
+      this.onHide();
+    }
   }
 }
-
 </script>
