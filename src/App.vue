@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <Button label="Show" icon="pi pi-check" @click="showDialog = true"></Button>
+  </div>
+
+  <Dialog header="GodFather I" v-model:visible="showDialog" :modal="true" :style="{width: '50vw'}">
+    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding...</p>
+    <Button label="Hide" icon="pi pi-times" @click="showDialog = false"></Button>
+  </Dialog>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import Dialog from 'primevue/dialog'
+import Button from 'primevue/button'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    Dialog,
+    Button
+  },
+  setup() {
+    const showDialog = ref(false);
+
+    return { showDialog };
   }
 }
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+</script>
